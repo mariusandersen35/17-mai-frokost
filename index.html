@@ -408,23 +408,14 @@
     </div>
     <div class="card-body">
       <p style="margin-bottom:16px; color:var(--muted); font-size:0.9rem;">
-        Klikk på celler for å redigere — hvem tar med hva, og status.
+        Rediger direkte i arket — endringer er synlige for alle med en gang.
+        <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRtS3ZVg6EdtepDJ9RP5QjlXxiUqAjqymryKoq_E1EwNasP9e9hCIBNolg4feu5THg6lkXDN8pUedLx/pubhtml" target="_blank" style="color:var(--blue); margin-left:6px;">Åpne i Google Sheets ↗</a>
       </p>
-      <table class="food-table">
-        <thead>
-          <tr>
-            <th>Matvare / Oppgave</th>
-            <th>Ansvarlig</th>
-            <th>Antall / Mengde</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="foodBody">
-          <!-- filled by JS -->
-        </tbody>
-      </table>
-      <button class="add-row-btn" onclick="addRow()">＋ Legg til rad</button>
-      <p class="edit-hint">✏️ Alle felt i tabellen kan klikkes og redigeres direkte. Trykk «Lagre» for å beholde endringer.</p>
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRtS3ZVg6EdtepDJ9RP5QjlXxiUqAjqymryKoq_E1EwNasP9e9hCIBNolg4feu5THg6lkXDN8pUedLx/pubhtml?widget=true&amp;headers=false"
+        style="width:100%; height:380px; border:1px solid var(--border); border-radius:8px;"
+        frameborder="0">
+      </iframe>
     </div>
   </div>
 
