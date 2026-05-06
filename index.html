@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>17. mai</title>
+  <style>
+    :root {
+      --red: #c0392b;
+      --blue: #1a3a6b;
+      --gold: #d4af37;
+      --light: #fdf6ec;
+      --white: #ffffff;
+      --gray: #f4f4f4;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #ddd;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--blue);
+      color: var(--white);
+      text-align: center;
+      padding: 48px 24px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 48px,
+        rgba(255,255,255,0.04) 48px,
+        rgba(255,255,255,0.04) 50px
+      );
+    }
+
+    .flag-stripe {
+      height: 6px;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red) 38%, var(--white) 38%, var(--white) 46%, var(--blue) 46%);
+      margin-bottom: 0;
+    }
+    .flag-stripe.bottom {
+      margin-top: 0;
+    }
+
+    header .emoji { font-size: 56px; display: block; margin-bottom: 16px; position: relative; }
+    header h1 { font-size: 2.6rem; font-weight: normal; letter-spacing: 1px; position: relative; }
+    header .subtitle { font-size: 1.1rem; opacity: 0.8; margin-top: 8px; position: relative; font-style: italic; }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: grid;
+      gap: 28px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--blue);
+      color: var(--white);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .card-header.red { background: var(--red); }
+
+    .card-header .icon { font-size: 1.3rem; }
+
+    .card-body { padding: 24px; }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 540px) {
+      .info-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.8rem; }
+    }
+
+    .info-item label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .info-item .value {
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .info-item .value a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .info-item .value a:hover { text-decoration: underline; }
+
+    /* ── GUEST LIST ── */
+    .guest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .guest-card {
+      background: var(--gray);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .guest-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .guest-name { font-size: 0.95rem; line-height: 1.3; }
+
+    .guest-status-badge {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .guest-status-badge.confirmed { background: #e8f5e9; color: #388e3c; }
+    .guest-status-badge.maybe     { background: #fff8e1; color: #f57f17; }
+    .guest-status-badge.declined  { background: #fce4ec; color: #c62828; }
+
+    /* ── FOOD TABLE ── */
+    .food-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .food-table th {
+      background: var(--gray);
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .food-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .food-table tr:last-child td { border-bottom: none; }
+    .food-table tr:hover td { background: #fafafa; }
+
+    .food-table td[contenteditable="true"] {
+      outline: none;
+      cursor: text;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .food-table td[contenteditable="true"]:hover {
+      background: #fff3e0;
+    }
+
+    .food-table td[contenteditable="true"]:focus {
+      background: #fff8e8;
+      box-shadow: inset 0 0 0 2px var(--gold);
+    }
+
+    .edit-hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .status-badge.done { background: #e8f5e9; color: #388e3c; }
+    .status-badge.todo { background: #fff3e0; color: #e65100; }
+    .status-badge.tbd  { background: #f3f3f3; color: #888; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; display: grid; gap: 10px; }
+
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gray);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+
+    .checklist li input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--blue);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist li label {
+      cursor: pointer;
+      font-size: 0.95rem;
+      flex: 1;
+    }
+
+    .checklist li.checked label {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    /* ── ADD ROW ── */
+    .add-row-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 9px 18px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .add-row-btn:hover { background: #0f2a55; }
+
+    /* ── NOTES AREA ── */
+    .notes-area {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .notes-area:focus { border-color: var(--blue); }
+
+    /* ── SAVE BAR ── */
+    .save-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      z-index: 100;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+    }
+
+    .save-bar span { font-size: 0.9rem; opacity: 0.85; }
+
+    .save-btn {
+      background: var(--gold);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+
+    .save-btn:hover { background: #c49a2a; }
+
+    .saved-msg {
+      font-size: 0.85rem;
+      color: #a8d8a8;
+      margin-left: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .saved-msg.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="flag-stripe"></div>
+<header>
+  <span class="emoji">🇳🇴</span>
+  <h1>17. mai</h1>
+</header>
+<div class="flag-stripe bottom"></div>
+
+<main>
+
+  <!-- INFO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📋</span> Praktisk informasjon
+    </div>
+    <div class="card-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Dato</label>
+          <div class="value">Søndag 17. mai 2026</div>
+        </div>
+        <div class="info-item">
+          <label>Klokkeslett</label>
+          <div class="value">kl. 09:00</div>
+        </div>
+        <div class="info-item">
+          <label>Adresse</label>
+          <div class="value">
+            <a href="https://maps.google.com/?q=Repslagergaten+2C+Oslo" target="_blank">
+              Repslagergaten 2C, Oslo 📍
+            </a>
+          </div>
+        </div>
+        <div class="info-item">
+          <label>Bekledning</label>
+          <div class="value">Pent antrekk 👔</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUESTS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🎉</span> Gjester
+    </div>
+    <div class="card-body">
+      <div class="guest-grid" id="guestGrid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD PLAN -->
+  <div class="card">
+    <div class="card-header red">
+      <span class="icon">🍽️</span> Matplan & Oppgaveliste
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:16px; color:var(--muted); font-size:0.9rem;">
+        Klikk på celler for å redigere — hvem tar med hva, og status.
+      </p>
+      <table class="food-table">
+        <thead>
+          <tr>
+            <th>Matvare / Oppgave</th>
+            <th>Ansvarlig</th>
+            <th>Antall / Mengde</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="foodBody">
+          <!-- filled by JS -->
+        </tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow()">＋ Legg til rad</button>
+      <p class="edit-hint">✏️ Alle felt i tabellen kan klikkes og redigeres direkte. Trykk «Lagre» for å beholde endringer.</p>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">✅</span> Huskeliste
+    </div>
+    <div class="card-body">
+      <ul class="checklist" id="checklist">
+        <!-- filled by JS -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📝</span> Notater
+    </div>
+    <div class="card-body">
+      <textarea class="notes-area" id="notesArea" placeholder="Skriv inn notater, ideer, eller annen info her…"></textarea>
+    </div>
+  </div>
+
+</main>
+
+<!-- SAVE BAR -->
+<div class="save-bar">
+  <span>Endringer lagres lokalt i nettleseren</span>
+  <div style="display:flex;align-items:center;">
+    <span class="saved-msg" id="savedMsg">✓ Lagret!</span>
+    <button class="save-btn" onclick="saveAll()">💾 Lagre</button>
+  </div>
+</div>
+
+<script>
+  // ── DATA ──────────────────────────────────────────────────────
+  const guests = [
+    { name: 'Vegard Steffensen',  initials: 'VS', status: 'confirmed' },
+    { name: 'Bernhard Nielsen',   initials: 'BN', status: 'confirmed' },
+    { name: 'Gustav Bolstad',     initials: 'GB', status: 'confirmed' },
+    { name: 'Kevin Jerner',       initials: 'KJ', status: 'confirmed' },
+    { name: 'Sondre Olsen',       initials: 'SO', status: 'confirmed' },
+    { name: 'Marius Andersen',    initials: 'MA', status: 'confirmed' },
+  ];
+
+  const guestStatusLabels = {
+    confirmed: 'Bekreftet ✓',
+    maybe:     'Usikker ?',
+    declined:  'Kommer ikke ✗',
+  };
+
+  const guestStatusCycle = ['confirmed', 'maybe', 'declined'];
+
+  const defaultFood = [
+    { item: 'Rundstykker / brød',    ansvarlig: '',   mengde: '2–3 stk per person', status: 'tbd' },
+    { item: 'Smør',                  ansvarlig: '',   mengde: '500 g',              status: 'tbd' },
+    { item: 'Ost (hvit og brun)',     ansvarlig: '',   mengde: 'Assortert',          status: 'tbd' },
+    { item: 'Pålegg (skinke, salami)',ansvarlig: '',   mengde: 'Assortert',          status: 'tbd' },
+    { item: 'Egg (kokt)',             ansvarlig: '',   mengde: '2 per person',       status: 'tbd' },
+    { item: 'Jordbær',               ansvarlig: '',   mengde: '1–2 kurver',         status: 'tbd' },
+    { item: 'Appelsinjuice / juice',  ansvarlig: '',   mengde: '2 flasker',          status: 'tbd' },
+    { item: 'Kaffe',                  ansvarlig: '',   mengde: '—',                  status: 'tbd' },
+    { item: 'Sjokolade / kake',       ansvarlig: '',   mengde: '—',                  status: 'tbd' },
+    { item: 'Servietter & papirtall.',ansvarlig: '',   mengde: '—',                  status: 'tbd' },
+  ];
+
+  const defaultChecklist = [
+    'Bestill eller skaff nok sitteplasser',
+    'Sett opp borddekking kvelden før',
+    'Handleliste fordelt og ferdig',
+    'Musikk / spilleliste klar',
+    'Norske flagg og pynting',
+    'Avklar parkering for gjester',
+    'Kjøp is/brus til de som ikke drikker kaffe',
+  ];
+
+  // ── GUESTS ────────────────────────────────────────────────────
+  const guestGrid = document.getElementById('guestGrid');
+
+  function renderGuests(statuses) {
+    guestGrid.innerHTML = '';
+    guests.forEach((g, i) => {
+      const status = statuses[i] || g.status;
+      const div = document.createElement('div');
+      div.className = 'guest-card';
+      div.innerHTML = `
+        <div class="guest-avatar">${g.initials}</div>
+        <div>
+          <div class="guest-name">${g.name}</div>
+          <span class="guest-status-badge ${status}" data-idx="${i}">${guestStatusLabels[status]}</span>
+        </div>`;
+      div.querySelector('.guest-status-badge').addEventListener('click', function() {
+        const cur = guestStatusCycle.indexOf(this.dataset.status || this.className.split(' ')[1]);
+        const next = guestStatusCycle[(cur + 1) % guestStatusCycle.length];
+        this.className = `guest-status-badge ${next}`;
+        this.textContent = guestStatusLabels[next];
+      });
+      guestGrid.appendChild(div);
+    });
+  }
+
+  // ── FOOD TABLE ────────────────────────────────────────────────
+  function statusBadge(s) {
+    const map = {
+      done: ['done', 'Ordnet ✓'],
+      todo: ['todo', 'Ikke ordnet'],
+      tbd:  ['tbd',  'Ikke tildelt'],
+    };
+    const [cls, label] = map[s] || map.tbd;
+    return `<span class="status-badge ${cls}" onclick="cycleStatus(this)">${label}</span>`;
+  }
+
+  function cycleStatus(el) {
+    const states = [
+      ['tbd',  'tbd',  'Ikke tildelt'],
+      ['todo', 'todo', 'Ikke ordnet'],
+      ['done', 'done', 'Ordnet ✓'],
+    ];
+    const cur = states.findIndex(s => el.classList.contains(s[0]));
+    const next = states[(cur + 1) % states.length];
+    el.className = `status-badge ${next[0]}`;
+    el.textContent = next[2];
+  }
+
+  function buildRow(f) {
+    return `<tr>
+      <td contenteditable="true">${f.item}</td>
+      <td contenteditable="true">${f.ansvarlig}</td>
+      <td contenteditable="true">${f.mengde}</td>
+      <td>${statusBadge(f.status)}</td>
+    </tr>`;
+  }
+
+  const foodBody = document.getElementById('foodBody');
+
+  function addRow() {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td contenteditable="true">Ny rad…</td>
+      <td contenteditable="true"></td>
+      <td contenteditable="true"></td>
+      <td>${statusBadge('tbd')}</td>`;
+    foodBody.appendChild(tr);
+    tr.querySelector('td').focus();
+  }
+
+  // ── CHECKLIST ─────────────────────────────────────────────────
+  const checklistEl = document.getElementById('checklist');
+
+  function renderChecklist(items, checked) {
+    checklistEl.innerHTML = '';
+    items.forEach((text, i) => {
+      const li = document.createElement('li');
+      const id = `chk-${i}`;
+      const isChecked = checked.includes(i);
+      if (isChecked) li.classList.add('checked');
+      li.innerHTML = `
+        <input type="checkbox" id="${id}" ${isChecked ? 'checked' : ''} onchange="toggleCheck(this, ${i})">
+        <label for="${id}" contenteditable="false">${text}</label>`;
+      checklistEl.appendChild(li);
+    });
+  }
+
+  function toggleCheck(el, idx) {
+    el.closest('li').classList.toggle('checked', el.checked);
+  }
+
+  // ── PERSISTENCE (localStorage) ────────────────────────────────
+  function saveAll() {
+    // food rows
+    const rows = [...foodBody.querySelectorAll('tr')].map(tr => {
+      const tds = tr.querySelectorAll('td');
+      const badge = tds[3]?.querySelector('.status-badge');
+      let status = 'tbd';
+      if (badge?.classList.contains('done')) status = 'done';
+      else if (badge?.classList.contains('todo')) status = 'todo';
+      return {
+        item:      tds[0]?.innerText || '',
+        ansvarlig: tds[1]?.innerText || '',
+        mengde:    tds[2]?.innerText || '',
+        status,
+      };
+    });
+    localStorage.setItem('food', JSON.stringify(rows));
+
+    // checklist
+    const checks = [...checklistEl.querySelectorAll('input[type=checkbox]')]
+      .map((cb, i) => cb.checked ? i : null).filter(i => i !== null);
+    const labels = [...checklistEl.querySelectorAll('label')].map(l => l.textContent);
+    localStorage.setItem('checklist', JSON.stringify(labels));
+    localStorage.setItem('checked', JSON.stringify(checks));
+
+    // guests
+    const guestStatuses = [...guestGrid.querySelectorAll('.guest-status-badge')]
+      .map(el => guestStatusCycle.find(s => el.classList.contains(s)) || 'confirmed');
+    localStorage.setItem('guestStatuses', JSON.stringify(guestStatuses));
+
+    // notes
+    localStorage.setItem('notes', document.getElementById('notesArea').value);
+
+    const msg = document.getElementById('savedMsg');
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 2000);
+  }
+
+  function loadAll() {
+    // guests
+    const savedStatuses = JSON.parse(localStorage.getItem('guestStatuses') || 'null');
+    renderGuests(savedStatuses || guests.map(g => g.status));
+
+    // food
+    const savedFood = JSON.parse(localStorage.getItem('food') || 'null');
+    foodBody.innerHTML = (savedFood || defaultFood).map(buildRow).join('');
+
+    // checklist
+    const savedItems   = JSON.parse(localStorage.getItem('checklist') || 'null') || defaultChecklist;
+    const savedChecked = JSON.parse(localStorage.getItem('checked')   || '[]');
+    renderChecklist(savedItems, savedChecked);
+
+    // notes
+    document.getElementById('notesArea').value = localStorage.getItem('notes') || '';
+  }
+
+  loadAll();
+
+  // Auto-save on unload
+  window.addEventListener('beforeunload', saveAll);
+</script>
+
+</body>
+</html>
