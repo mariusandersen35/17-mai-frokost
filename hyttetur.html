@@ -63,7 +63,7 @@
     main {
       max-width: 860px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 40px 20px 60px;
       display: grid;
       gap: 28px;
     }
@@ -198,11 +198,6 @@
       font-weight: bold;
     }
 
-    .program-day li[contenteditable="true"],
-    .program-day li .desc[contenteditable="true"] {
-      outline: none;
-    }
-
     /* ── MENU ── */
     .menu-list {
       display: grid;
@@ -228,7 +223,6 @@
       font-size: 1.3rem;
       font-weight: bold;
       color: var(--text);
-      outline: none;
     }
 
     .menu-dresscode {
@@ -240,62 +234,7 @@
       color: #3a2a00;
       font-size: 0.8rem;
       font-weight: bold;
-      outline: none;
     }
-
-    /* ── FOOD TABLE ── */
-    .food-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .food-table th {
-      background: var(--gray);
-      text-align: left;
-      padding: 10px 14px;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--muted);
-      border-bottom: 2px solid var(--border);
-    }
-
-    .food-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-    }
-
-    .food-table tr:last-child td { border-bottom: none; }
-    .food-table tr:hover td { background: #fafafa; }
-
-    .food-table td[contenteditable="true"] {
-      outline: none;
-      cursor: text;
-      border-radius: 4px;
-      transition: background 0.15s;
-    }
-
-    .food-table td[contenteditable="true"]:hover {
-      background: #fff8e0;
-    }
-
-    .food-table td[contenteditable="true"]:focus {
-      background: #fffbe8;
-      box-shadow: inset 0 0 0 2px var(--sun);
-    }
-
-    .status-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .status-badge.done { background: #e8f5e9; color: #388e3c; }
-    .status-badge.todo { background: #fff3e0; color: #e65100; }
-    .status-badge.tbd  { background: #f3f3f3; color: #888; }
 
     /* ── CHECKLIST ── */
     .checklist { list-style: none; display: grid; gap: 10px; }
@@ -307,103 +246,15 @@
       background: var(--gray);
       padding: 12px 16px;
       border-radius: 8px;
+      font-size: 0.95rem;
     }
 
-    .checklist li input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--teal);
-      cursor: pointer;
+    .checklist li::before {
+      content: '•';
+      color: var(--teal);
+      font-weight: bold;
       flex-shrink: 0;
     }
-
-    .checklist li label {
-      cursor: pointer;
-      font-size: 0.95rem;
-      flex: 1;
-    }
-
-    .checklist li.checked label {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
-
-    /* ── ADD ROW / DAY BUTTONS ── */
-    .add-row-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      padding: 9px 18px;
-      background: var(--teal);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-
-    .add-row-btn:hover { background: #154e55; }
-
-    /* ── NOTES AREA ── */
-    .notes-area {
-      width: 100%;
-      min-height: 120px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text);
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .notes-area:focus { border-color: var(--teal); }
-
-    /* ── SAVE BAR ── */
-    .save-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--teal);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-      z-index: 100;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
-    }
-
-    .save-bar span { font-size: 0.9rem; opacity: 0.85; }
-
-    .save-btn {
-      background: var(--sun);
-      color: #3a2a00;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-
-    .save-btn:hover { background: #e0a52e; }
-
-    .saved-msg {
-      font-size: 0.85rem;
-      color: #a8e0c0;
-      margin-left: 12px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .saved-msg.show { opacity: 1; }
   </style>
 </head>
 <body>
@@ -426,15 +277,15 @@
       <div class="info-grid">
         <div class="info-item">
           <label>Fra</label>
-          <div class="value" contenteditable="true">Torsdag 25. juli 2026</div>
+          <div class="value">Torsdag 25. juli 2026</div>
         </div>
         <div class="info-item">
           <label>Til</label>
-          <div class="value" contenteditable="true">Søndag 28. juli 2026</div>
+          <div class="value">Søndag 28. juli 2026</div>
         </div>
         <div class="info-item">
           <label>Adresse</label>
-          <div class="value" contenteditable="true">
+          <div class="value">
             <a href="https://maps.google.com/?q=%C3%85mland+94" target="_blank">Åmland 94 📍</a>
           </div>
         </div>
@@ -448,8 +299,16 @@
       <span class="icon">🎉</span> Hvem kommer
     </div>
     <div class="card-body">
-      <div class="guest-grid" id="guestGrid">
-        <!-- filled by JS -->
+      <div class="guest-grid">
+        <div class="guest-card"><div class="guest-avatar">JO</div><div class="guest-name">Joakim</div></div>
+        <div class="guest-card"><div class="guest-avatar">JU</div><div class="guest-name">Julia</div></div>
+        <div class="guest-card"><div class="guest-avatar">MA</div><div class="guest-name">Marius</div></div>
+        <div class="guest-card"><div class="guest-avatar">MI</div><div class="guest-name">Mia</div></div>
+        <div class="guest-card"><div class="guest-avatar">OL</div><div class="guest-name">Olav</div></div>
+        <div class="guest-card"><div class="guest-avatar">EI</div><div class="guest-name">Eirik</div></div>
+        <div class="guest-card"><div class="guest-avatar">KA</div><div class="guest-name">Kaja</div></div>
+        <div class="guest-card"><div class="guest-avatar">CE</div><div class="guest-name">Celine</div></div>
+        <div class="guest-card"><div class="guest-avatar">GA</div><div class="guest-name">Gard</div></div>
       </div>
     </div>
   </div>
@@ -460,13 +319,40 @@
       <span class="icon">🗓️</span> Program
     </div>
     <div class="card-body">
-      <div class="program-list" id="programList">
-        <!-- filled by JS -->
+      <div class="program-list">
+        <div class="program-day">
+          <h3>Fredag</h3>
+          <ul>
+            <li><span class="time">Forløpende</span><span class="desc">Ankomst</span></li>
+            <li><span class="time">18:00</span><span class="desc">Middag</span></li>
+            <li><span class="time">19:30</span><span class="desc">Leker</span></li>
+            <li><span class="time">21:00</span><span class="desc">Norge–Frankrike</span></li>
+          </ul>
+        </div>
+        <div class="program-day">
+          <h3>Lørdag</h3>
+          <ul>
+            <li><span class="time">10:00</span><span class="desc">Frokost</span></li>
+            <li><span class="time">12:00</span><span class="desc">Fritt</span></li>
+            <li><span class="time">14:00</span><span class="desc">Ølympiske leker</span></li>
+            <li><span class="time">15:30</span><span class="desc">Lunsj</span></li>
+            <li><span class="time">16:30</span><span class="desc">Leker</span></li>
+            <li><span class="time">19:00</span><span class="desc">Middag</span></li>
+          </ul>
+        </div>
+        <div class="program-day">
+          <h3>Søndag</h3>
+          <ul>
+            <li><span class="time">09:00</span><span class="desc">Frokost</span></li>
+            <li><span class="time">11:00</span><span class="desc">Rydding og pakking</span></li>
+            <li><span class="time">14:00</span><span class="desc">Avreise</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- FOOD PLAN -->
+  <!-- MENY -->
   <div class="card">
     <div class="card-header green">
       <span class="icon">🍽️</span> Meny
@@ -475,13 +361,13 @@
       <div class="menu-list">
         <div class="menu-day">
           <h3>Fredag</h3>
-          <div class="menu-dish" contenteditable="true">Moules frites / skalldyr</div>
-          <span class="menu-dresscode" contenteditable="true">👗 Pent og sommerslig</span>
+          <div class="menu-dish">Moules frites / skalldyr</div>
+          <span class="menu-dresscode">👗 Pent og sommerslig</span>
         </div>
         <div class="menu-day">
           <h3>Lørdag</h3>
-          <div class="menu-dish" contenteditable="true">Tagliata</div>
-          <span class="menu-dresscode" contenteditable="true">👗 Hvitt tema</span>
+          <div class="menu-dish">Tagliata</div>
+          <span class="menu-dresscode">👗 Hvitt tema</span>
         </div>
       </div>
     </div>
@@ -497,41 +383,41 @@
         <div class="program-day">
           <h3>Marius og Mia</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">180 cm laken</span></li>
-            <li><span class="desc" contenteditable="true">2 sett dyne- og putetrekk</span></li>
+            <li><span class="desc">180 cm laken</span></li>
+            <li><span class="desc">2 sett dyne- og putetrekk</span></li>
           </ul>
         </div>
         <div class="program-day">
           <h3>Eirik og Kaja</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">180 cm laken</span></li>
-            <li><span class="desc" contenteditable="true">2 sett dyne- og putetrekk</span></li>
+            <li><span class="desc">180 cm laken</span></li>
+            <li><span class="desc">2 sett dyne- og putetrekk</span></li>
           </ul>
         </div>
         <div class="program-day">
           <h3>Joakim og Julia</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">Fikset</span></li>
+            <li><span class="desc">Fikset</span></li>
           </ul>
         </div>
         <div class="program-day">
           <h3>Gard</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">Enkeltlaken</span></li>
-            <li><span class="desc" contenteditable="true">Dyne- og putetrekk</span></li>
+            <li><span class="desc">Enkeltlaken</span></li>
+            <li><span class="desc">Dyne- og putetrekk</span></li>
           </ul>
         </div>
         <div class="program-day">
           <h3>Celine</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">160 cm laken</span></li>
-            <li><span class="desc" contenteditable="true">Enkelt sengetrekk</span></li>
+            <li><span class="desc">160 cm laken</span></li>
+            <li><span class="desc">Enkelt sengetrekk</span></li>
           </ul>
         </div>
         <div class="program-day">
           <h3>Olav</h3>
           <ul>
-            <li><span class="desc" contenteditable="true">Sengetøy ikke avklart ennå</span></li>
+            <li><span class="desc">Sengetøy ikke avklart ennå</span></li>
           </ul>
         </div>
       </div>
@@ -556,257 +442,29 @@
       <span class="icon">✅</span> Huskeliste / Pakkeliste
     </div>
     <div class="card-body">
-      <ul class="checklist" id="checklist">
-        <!-- filled by JS -->
+      <ul class="checklist">
+        <li>Klær til varmt vær (25°C+)</li>
+        <li>Koseklær</li>
+        <li>Badetøy</li>
+        <li>Treningstøy (volleyball)</li>
+        <li>Sandaler</li>
+        <li>Solkrem</li>
+        <li>Sovemaske (hvis du har)</li>
+        <li>Håndkle</li>
+        <li>Solbriller</li>
+        <li>Dansesko</li>
+        <li>Sengetøy (se oversikt)</li>
+        <li>Gard: høyttaler</li>
+        <li>Marius: airfryer + Ø-L</li>
+        <li>Volleyball (Mia)</li>
+        <li>Alkohol til eget forbruk</li>
+        <li>Norge-kampklær</li>
+        <li>Godt humør 🙏</li>
       </ul>
     </div>
   </div>
 
-  <!-- NOTES -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">📝</span> Notater
-    </div>
-    <div class="card-body">
-      <textarea class="notes-area" id="notesArea" placeholder="Skriv inn notater, ideer, eller annen info her…"></textarea>
-    </div>
-  </div>
-
 </main>
-
-<!-- SAVE BAR -->
-<div class="save-bar">
-  <span>Endringer lagres lokalt i nettleseren</span>
-  <div style="display:flex;align-items:center;">
-    <span class="saved-msg" id="savedMsg">✓ Lagret!</span>
-    <button class="save-btn" onclick="saveAll()">💾 Lagre</button>
-  </div>
-</div>
-
-<script>
-  // ── DATA ──────────────────────────────────────────────────────
-  const guests = [
-    { name: 'Joakim', initials: 'JO' },
-    { name: 'Julia',  initials: 'JU' },
-    { name: 'Marius', initials: 'MA' },
-    { name: 'Mia',    initials: 'MI' },
-    { name: 'Olav',   initials: 'OL' },
-    { name: 'Eirik',  initials: 'EI' },
-    { name: 'Kaja',   initials: 'KA' },
-    { name: 'Celine', initials: 'CE' },
-    { name: 'Gard',   initials: 'GA' },
-  ];
-
-  const defaultProgram = [
-    { day: 'Fredag', items: [
-      { time: 'Forløpende', desc: 'Ankomst' },
-      { time: '18:00', desc: 'Middag' },
-      { time: '19:30', desc: 'Leker' },
-      { time: '21:00', desc: 'Norge–Frankrike' },
-    ]},
-    { day: 'Lørdag', items: [
-      { time: '10:00', desc: 'Frokost' },
-      { time: '12:00', desc: 'Fritt' },
-      { time: '14:00', desc: 'Ølympiske leker' },
-      { time: '15:30', desc: 'Lunsj' },
-      { time: '16:30', desc: 'Leker' },
-      { time: '19:00', desc: 'Middag' },
-    ]},
-    { day: 'Søndag', items: [
-      { time: '09:00', desc: 'Frokost' },
-      { time: '11:00', desc: 'Rydding og pakking' },
-      { time: '14:00', desc: 'Avreise' },
-    ]},
-  ];
-
-  const defaultChecklist = [
-    'Klær til varmt vær (25°C+)',
-    'Koseklær',
-    'Badetøy',
-    'Treningstøy (volleyball)',
-    'Sandaler',
-    'Solkrem',
-    'Sovemaske (hvis du har)',
-    'Håndkle',
-    'Solbriller',
-    'Dansesko',
-    'Sengetøy (se oversikt)',
-    'Gard: høyttaler',
-    'Marius: airfryer + Ø-L',
-    'Volleyball (Mia)',
-    'Alkohol til eget forbruk',
-    'Godt humør 🙏',
-  ];
-
-  // ── SAFE STORAGE (falls back to in-memory if localStorage is blocked) ──
-  const memoryStore = {};
-  const safeStorage = {
-    getItem(key) {
-      try { return localStorage.getItem(key); }
-      catch (e) { return Object.prototype.hasOwnProperty.call(memoryStore, key) ? memoryStore[key] : null; }
-    },
-    setItem(key, value) {
-      try { localStorage.setItem(key, value); }
-      catch (e) { memoryStore[key] = value; }
-    },
-    removeItem(key) {
-      try { localStorage.removeItem(key); }
-      catch (e) { delete memoryStore[key]; }
-    },
-  };
-
-  // ── GUESTS ────────────────────────────────────────────────────
-  const guestGrid = document.getElementById('guestGrid');
-
-  function renderGuests(photos) {
-    guestGrid.innerHTML = '';
-    guests.forEach((g, i) => {
-      const photo = photos[i];
-      const div = document.createElement('div');
-      div.className = 'guest-card';
-      div.innerHTML = `
-        <label class="guest-avatar" style="cursor:pointer; overflow:hidden; background-size:cover; background-position:center;${photo ? ` background-image:url('${photo}');` : ''}"${photo ? ` data-photo="${photo}"` : ''}>
-          ${photo ? '' : g.initials}
-          <input type="file" accept="image/*" data-idx="${i}" style="display:none;">
-        </label>
-        <div>
-          <div class="guest-name">${g.name}</div>
-        </div>`;
-      div.querySelector('input[type=file]').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          const avatar = this.closest('.guest-avatar');
-          avatar.style.backgroundImage = `url('${reader.result}')`;
-          avatar.style.backgroundSize = 'cover';
-          avatar.style.backgroundPosition = 'center';
-          avatar.textContent = '';
-          avatar.appendChild(this);
-          avatar.dataset.photo = reader.result;
-        };
-        reader.readAsDataURL(file);
-      });
-      guestGrid.appendChild(div);
-    });
-  }
-
-  // ── PROGRAM ───────────────────────────────────────────────────
-  const programList = document.getElementById('programList');
-
-  function renderProgram(program) {
-    programList.innerHTML = '';
-    program.forEach(day => {
-      const div = document.createElement('div');
-      div.className = 'program-day';
-      const itemsHtml = day.items.map(it => `
-        <li>
-          <span class="time" contenteditable="true">${it.time}</span>
-          <span class="desc" contenteditable="true">${it.desc}</span>
-        </li>`).join('');
-      div.innerHTML = `<h3 contenteditable="true">${day.day}</h3><ul>${itemsHtml}</ul>`;
-      programList.appendChild(div);
-    });
-  }
-
-  // ── CHECKLIST ─────────────────────────────────────────────────
-  const checklistEl = document.getElementById('checklist');
-
-  function renderChecklist(items, checked) {
-    checklistEl.innerHTML = '';
-    items.forEach((text, i) => {
-      const li = document.createElement('li');
-      const id = `chk-${i}`;
-      const isChecked = checked.includes(i);
-      if (isChecked) li.classList.add('checked');
-      li.innerHTML = `
-        <input type="checkbox" id="${id}" ${isChecked ? 'checked' : ''} onchange="toggleCheck(this, ${i})">
-        <label for="${id}" contenteditable="false">${text}</label>`;
-      checklistEl.appendChild(li);
-    });
-  }
-
-  function toggleCheck(el, idx) {
-    el.closest('li').classList.toggle('checked', el.checked);
-  }
-
-  // ── PERSISTENCE (localStorage) ────────────────────────────────
-  function saveAll() {
-    // guests
-    const guestPhotos = [...guestGrid.querySelectorAll('.guest-avatar')]
-      .map(el => el.dataset.photo || null);
-    safeStorage.setItem('hyttetur_guestPhotos', JSON.stringify(guestPhotos));
-
-    // program
-    const program = [...programList.querySelectorAll('.program-day')].map(dayEl => ({
-      day: dayEl.querySelector('h3').textContent,
-      items: [...dayEl.querySelectorAll('li')].map(li => ({
-        time: li.querySelector('.time').textContent,
-        desc: li.querySelector('.desc').textContent,
-      })),
-    }));
-    safeStorage.setItem('hyttetur_program', JSON.stringify(program));
-
-    // checklist
-    const checks = [...checklistEl.querySelectorAll('input[type=checkbox]')]
-      .map((cb, i) => cb.checked ? i : null).filter(i => i !== null);
-    const labels = [...checklistEl.querySelectorAll('label')].map(l => l.textContent);
-    safeStorage.setItem('hyttetur_checklist', JSON.stringify(labels));
-    safeStorage.setItem('hyttetur_checked', JSON.stringify(checks));
-
-    // info grid (practical info)
-    const infoValues = [...document.querySelectorAll('.info-item .value')].map(el => el.innerHTML);
-    safeStorage.setItem('hyttetur_info', JSON.stringify(infoValues));
-
-    // notes
-    safeStorage.setItem('hyttetur_notes', document.getElementById('notesArea').value);
-
-    const msg = document.getElementById('savedMsg');
-    msg.classList.add('show');
-    setTimeout(() => msg.classList.remove('show'), 2000);
-  }
-
-  // Bump this whenever default content (program, checklist, etc.) changes,
-  // so visitors with stale localStorage automatically get the new defaults.
-  const CONTENT_VERSION = '12';
-
-  function loadAll() {
-    if (safeStorage.getItem('hyttetur_contentVersion') !== CONTENT_VERSION) {
-      ['hyttetur_program', 'hyttetur_checklist', 'hyttetur_checked', 'hyttetur_info']
-        .forEach(key => safeStorage.removeItem(key));
-      safeStorage.setItem('hyttetur_contentVersion', CONTENT_VERSION);
-    }
-
-    // guests
-    const savedPhotos = JSON.parse(safeStorage.getItem('hyttetur_guestPhotos') || 'null');
-    renderGuests(savedPhotos || guests.map(() => null));
-
-    // program
-    const savedProgram = JSON.parse(safeStorage.getItem('hyttetur_program') || 'null');
-    renderProgram(savedProgram || defaultProgram);
-
-    // checklist
-    const savedItems   = JSON.parse(safeStorage.getItem('hyttetur_checklist') || 'null') || defaultChecklist;
-    const savedChecked = JSON.parse(safeStorage.getItem('hyttetur_checked')   || '[]');
-    renderChecklist(savedItems, savedChecked);
-
-    // info grid
-    const savedInfo = JSON.parse(safeStorage.getItem('hyttetur_info') || 'null');
-    if (savedInfo) {
-      document.querySelectorAll('.info-item .value').forEach((el, i) => {
-        if (savedInfo[i] !== undefined) el.innerHTML = savedInfo[i];
-      });
-    }
-
-    // notes
-    document.getElementById('notesArea').value = safeStorage.getItem('hyttetur_notes') || '';
-  }
-
-  loadAll();
-
-  // Auto-save on unload
-  window.addEventListener('beforeunload', saveAll);
-</script>
 
 </body>
 </html>
